@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="d\**" />
+    <EmbeddedResource Remove="d\**" />
+    <None Remove="d\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Persistance\Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Patient\Commands\" />
+    <Folder Include="Services\Patient\Validator\" />
+    <Folder Include="Services\Patient\Responses\" />
+    <Folder Include="Services\Patient\Queries\" />
+    <Folder Include="Services\Roles\Commands\" />
+    <Folder Include="Services\Roles\Queries\" />
+    <Folder Include="Services\Roles\Validator\" />
+    <Folder Include="Services\UserRoles\Commands\" />
+    <Folder Include="Services\UserRoles\Validator\" />
+    <Folder Include="Services\UserRoles\Queries\" />
+  </ItemGroup>
+
+</Project>
