@@ -13,12 +13,14 @@ namespace API.Services
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
 
-        public TokenService(IConfiguration config, UserManager<User> userManager) { 
+        public TokenService(IConfiguration config, UserManager<User> userManager)
+        {
             _userManager = userManager;
             _configuration = config;
         }
 
-        public async Task<string> CreateToken(User user) {
+        public async Task<string> CreateToken(User user)
+        {
             var claims = new List<Claim> {
                 new(ClaimTypes.Name, user.FirstName!),
                 new(ClaimTypes.Name, user.LastName!),
@@ -28,7 +30,7 @@ namespace API.Services
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            foreach(var role in roles)
+            foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }

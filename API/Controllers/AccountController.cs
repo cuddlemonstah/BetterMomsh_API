@@ -1,9 +1,6 @@
-﻿using API.Services;
+﻿using API.Services.Interfaces;
 using Application.Services.Accounts.Requests;
 using Application.Services.Accounts.Response;
-using Application.Services.Users.Commands;
-using Application.Services.Users.Request;
-using Application.Services.Users.Response;
 using AutoMapper;
 using Domain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -20,13 +17,13 @@ namespace API.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            TokenService tokenService,
+            ITokenService tokenService,
             IMapper mapper
             )
         {
@@ -39,10 +36,12 @@ namespace API.Controllers
         [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult> Login(LoginRequest request) {
+        public async Task<ActionResult> Login(LoginRequest request)
+        {
             var user = await _userManager.Users
                                 .FirstOrDefaultAsync(x => x.Email.Equals(request.Email));
-            if (user == null) {
+            if (user == null)
+            {
                 return Unauthorized("Invalid Email or Password");
             }
 
@@ -76,7 +75,8 @@ namespace API.Controllers
 
             return Ok(await CreateAuthResponse(user, roles));
         }
-        private async Task<AuthResponse> CreateAuthResponse(User user, IList<string>? roles) {
+        private async Task<AuthResponse> CreateAuthResponse(User user, IList<string>? roles)
+        {
 
             return new AuthResponse
             {

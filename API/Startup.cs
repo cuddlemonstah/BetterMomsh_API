@@ -14,8 +14,9 @@ namespace API
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        public Startup(IConfiguration iconfig) { 
-            
+        public Startup(IConfiguration iconfig)
+        {
+
             Configuration = iconfig;
         }
 
@@ -114,26 +115,29 @@ namespace API
                     };
                 });
 
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
                 .Build();
             });
-            services.AddScoped<ITokenService,TokenService>();
+            services.AddScoped<ITokenService, ITokenService>();
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            if (env.IsDevelopment()) { 
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -144,14 +148,14 @@ namespace API
 
             app.UseHttpsRedirection();
 
-           
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
 
-       
+
         }
     }
 }
